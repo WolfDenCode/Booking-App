@@ -1,4 +1,3 @@
-import "./App.css";
 import BookingComponent from "./components/BookingComponent";
 import deluxe1 from "./assets/images/deluxe1.jpg";
 import deluxe2 from "./assets/images/deluxe2.jpg";
@@ -7,6 +6,8 @@ import family_suite2 from "./assets/images/family_suite2.webp";
 import family_suite3 from "./assets/images/family_suite3.jpg";
 import standard1 from "./assets/images/standard1.jpg";
 import standard2 from "./assets/images/standard2.webp";
+import AllRooms from "./components/AllRooms";
+import Navbar from "./components/Navbar";
 
 function App() {
   const roomData = [
@@ -78,7 +79,9 @@ function App() {
   ];
   return (
     <>
+      <Navbar></Navbar>
       <BookingComponent roomData={roomData}></BookingComponent>
+      <AllRooms roomData={roomData}></AllRooms>
     </>
   );
 }
