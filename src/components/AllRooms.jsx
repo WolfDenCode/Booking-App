@@ -1,7 +1,6 @@
-// src/components/AllRooms.jsx
 import React from "react";
-import RoomCard from "./RoomDetails/RoomCard";
 import "./AllRooms.css";
+import RoomCard from "./RoomDetails/RoomCard";
 
 const AllRooms = ({ roomData }) => {
   return (

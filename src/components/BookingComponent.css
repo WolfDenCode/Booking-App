@@ -39,7 +39,7 @@
 }
 
 .calendar-day.selected {
-  background: #f8b996; /* Highlight for selected current month dates */
+  background: #f8b996;
 }
 
 .calendar-day.overflow {
@@ -49,7 +49,7 @@
 }
 
 .calendar-day.overflow.selected {
-  background: #f8b996aa; /* Slightly transparent rosegold for selected overflow dates */
+  background: #f8b996aa;
 }
 
 .book-rooms-button {

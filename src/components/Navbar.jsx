@@ -7,17 +7,11 @@ const Navbar = () => {
     <nav className="navbar">
       <h1>Hotel Booking</h1>
       <ul>
-        {/* <li>
-          <Link to="/">Home</Link>
+        <li>
+          <Link to="">Home</Link>
         </li>
         <li>
-          <Link to="/all-rooms">All Rooms</Link>
-        </li> */}
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/all-rooms">All Rooms</a>
+          <Link to="all-rooms">All Rooms</Link>
         </li>
       </ul>
     </nav>
