@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import RoomCard from "./RoomDetails/RoomCard";
 import "./BookingComponent.css";
 
-const BookingComponent = ({ roomData }) => {
+const BookingComponent = ({ roomData, currentUser }) => {
   const [selectedDates, setSelectedDates] = useState({
     startDate: null,
     endDate: null,
@@ -12,6 +12,7 @@ const BookingComponent = ({ roomData }) => {
   const [isFiltered, setIsFiltered] = useState(false);
   const [error, setError] = useState("");
 
+  const [loggedInUser, setLoggedInUser] = useState(currentUser);
   const handleDateClick = (day, monthOffset = 0) => {
     const selectedDate = new Date(
       currentDate.getFullYear(),
@@ -153,7 +154,11 @@ const BookingComponent = ({ roomData }) => {
       <div className="filtered-rooms">
         {filteredRooms.length > 0 ? (
           filteredRooms.map((room) => (
-            <RoomCard key={room.roomId} room={room} />
+            <RoomCard
+              key={room.roomId}
+              room={room}
+              selectedDateRange={selectedDates}
+            />
           ))
         ) : isFiltered && selectedDates.startDate ? (
           <p>No available rooms for the selected dates.</p>
