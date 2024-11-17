@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
@@ -14,6 +14,7 @@ import standard2 from "./assets/images/standard2.webp";
 
 import AllRooms from "./components/AllRooms.jsx";
 import BookingComponent from "./components/BookingComponent.jsx";
+import AuthForm from "./components/AuthForm.jsx";
 
 const roomData = [
   {
@@ -82,6 +83,29 @@ const roomData = [
       "Perfect for families, with spacious living and a kitchenette.",
   },
 ];
+const users = [
+  {
+    uid: 1,
+    name: "Jane Smith",
+    email: "janesmith@example.com",
+    password: "ASDqwe123",
+    occupiedRooms: [
+      { roomId: "room1", dates: ["2024-11-25", "2024-11-26", "2024-11-27"] },
+    ],
+  },
+];
+let currentUser = null;
+
+const handleAuthentication = (data, isLogin) => {
+  if (isLogin) {
+    console.log("Logging In", data);
+    currentUser = data;
+  } else {
+    console.log("Signing Up", data);
+    users.push({ ...data, id: users.length + 1, occupiedRooms: [] });
+  }
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -94,6 +118,17 @@ const router = createBrowserRouter([
       {
         path: "/all-rooms",
         element: <AllRooms roomData={roomData}></AllRooms>,
+      },
+      {
+        path: "/auth",
+        element: (
+          <AuthForm
+            isLogin={false}
+            submitCallback={(data, islogin) =>
+              handleAuthentication(data, islogin)
+            }
+          ></AuthForm>
+        ),
       },
     ],
   },
