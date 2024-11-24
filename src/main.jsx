@@ -25,19 +25,9 @@ const roomData = [
     occupiedDates: [
       {
         date: "2024-11-10",
-        occupierInfo: {
-          uid: "guest123",
-          name: "John Doe",
-          contact: "johndoe@example.com",
-        },
       },
       {
         date: "2024-11-11",
-        occupierInfo: {
-          uid: "guest123",
-          name: "John Doe",
-          contact: "johndoe@example.com",
-        },
       },
     ],
     pricePerNight: 150,
@@ -81,17 +71,6 @@ const roomData = [
     images: [family_suite1, family_suite2, family_suite3],
     description:
       "Perfect for families, with spacious living and a kitchenette.",
-  },
-];
-const users = [
-  {
-    uid: 1,
-    name: "Jane Smith",
-    email: "janesmith@example.com",
-    password: "ASDqwe123",
-    occupiedRooms: [
-      { roomId: "room1", dates: ["2024-11-25", "2024-11-26", "2024-11-27"] },
-    ],
   },
 ];
 let currentUser = null;

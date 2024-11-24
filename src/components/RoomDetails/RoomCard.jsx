@@ -15,14 +15,15 @@ const RoomCard = ({ room, selectedDateRange }) => {
     <div className="room-card">
       <RoomImageSlider images={room.images} />
       <RoomInfo room={room} />
-      <OccupiedDates dates={room.occupiedDates} />
-      <button
-        className="book-room-button"
-        onClick={() => handleBooking(room.roomId, selectedDateRange)}
-        disabled={!selectedDateRange.startDate || !selectedDateRange.endDate}
-      >
-        Book Room
-      </button>
+      {selectedDateRange ? (
+        <button
+          className="book-room-button"
+          onClick={() => handleBooking(room.roomId, selectedDateRange)}
+          disabled={!selectedDateRange.startDate || !selectedDateRange.endDate}
+        >
+          Book Room
+        </button>
+      ) : null}
     </div>
   );
 };
