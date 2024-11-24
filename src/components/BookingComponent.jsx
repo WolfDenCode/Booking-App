@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RoomCard from "./RoomDetails/RoomCard";
 import "./BookingComponent.css";
 
-const BookingComponent = ({ roomData, currentUser }) => {
+const BookingComponent = ({ currentUser }) => {
   const [selectedDates, setSelectedDates] = useState({
     startDate: null,
     endDate: null,
@@ -13,6 +13,25 @@ const BookingComponent = ({ roomData, currentUser }) => {
   const [error, setError] = useState("");
 
   const [loggedInUser, setLoggedInUser] = useState(currentUser);
+  const [roomData, setRoomData] = useState([]);
+
+  useEffect(() => {
+    async function fetchRoomData() {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/rooms/", {
+          method: "GET",
+        });
+
+        const data = await response.json(); // Parse the JSON response
+
+        console.log("Fetching successful:", data);
+        setRoomData(data);
+      } catch (error) {
+        console.error("Error during fetch:", error);
+      }
+    }
+    fetchRoomData();
+  }, []);
   const handleDateClick = (day, monthOffset = 0) => {
     const selectedDate = new Date(
       currentDate.getFullYear(),
