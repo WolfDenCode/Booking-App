@@ -18,7 +18,11 @@ const RoomImageSlider = ({ images }) => {
   return (
     <div className="image-slider">
       <button onClick={handlePrev}>&#10094;</button>
-      <img src={images[currentIndex]} alt="Room" className="slider-image" />
+      <img
+        src={images[currentIndex].image}
+        alt="Room"
+        className="slider-image"
+      />
       <button onClick={handleNext}>&#10095;</button>
     </div>
   );

@@ -18,7 +18,7 @@ const RoomCard = ({ room, selectedDateRange }) => {
       {selectedDateRange ? (
         <button
           className="book-room-button"
-          onClick={() => handleBooking(room.roomId, selectedDateRange)}
+          onClick={() => handleBooking(room.id, selectedDateRange)}
           disabled={!selectedDateRange.startDate || !selectedDateRange.endDate}
         >
           Book Room

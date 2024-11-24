@@ -22,6 +22,10 @@ const BookingComponent = ({ currentUser }) => {
           method: "GET",
         });
 
+        if (!response.ok) {
+          throw new Error("Failed to fetch room data.");
+        }
+
         const data = await response.json(); // Parse the JSON response
 
         console.log("Fetching successful:", data);
@@ -174,7 +178,7 @@ const BookingComponent = ({ currentUser }) => {
         {filteredRooms.length > 0 ? (
           filteredRooms.map((room) => (
             <RoomCard
-              key={room.roomId}
+              key={room.id}
               room={room}
               selectedDateRange={selectedDates}
             />

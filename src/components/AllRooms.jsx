@@ -12,6 +12,10 @@ const AllRooms = () => {
           method: "GET",
         });
 
+        if (!response.ok) {
+          throw new Error("Failed to fetch room data.");
+        }
+
         const data = await response.json(); // Parse the JSON response
 
         console.log("Fetching successful:", data);
