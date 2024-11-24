@@ -36,6 +36,7 @@ const BookingComponent = ({ currentUser }) => {
     }
     fetchRoomData();
   }, []);
+
   const handleDateClick = (day, monthOffset = 0) => {
     const selectedDate = new Date(
       currentDate.getFullYear(),
@@ -44,8 +45,13 @@ const BookingComponent = ({ currentUser }) => {
     );
 
     if (!selectedDates.startDate || selectedDates.endDate) {
+      // If no dates are selected or both are already set, reset to a single date
       setSelectedDates({ startDate: selectedDate, endDate: null });
+    } else if (selectedDate.getTime() === selectedDates.startDate.getTime()) {
+      // If clicking the same date again, treat as a single-day selection
+      setSelectedDates({ startDate: selectedDate, endDate: selectedDate });
     } else {
+      // Set the endDate if selecting a valid range
       if (selectedDate > selectedDates.startDate) {
         setSelectedDates({ ...selectedDates, endDate: selectedDate });
       } else {
@@ -55,6 +61,7 @@ const BookingComponent = ({ currentUser }) => {
         });
       }
     }
+
     setError(""); // Clear any error message on date selection
   };
 
@@ -118,18 +125,41 @@ const BookingComponent = ({ currentUser }) => {
   const days = generateCalendarDays();
 
   const handleFilterRooms = () => {
-    if (!selectedDates.startDate || !selectedDates.endDate) {
-      setError("Please select a valid date range.");
+    if (!selectedDates.startDate) {
+      setError("Please select a valid date.");
       setIsFiltered(false);
       return;
     }
 
+    // If endDate is null, fall back to startDate for single-day booking
     const startDate = selectedDates.startDate;
-    const endDate = selectedDates.endDate;
+    const endDate = selectedDates.endDate || selectedDates.startDate;
 
     const isDateInRange = (occupiedDate) => {
       const occupied = new Date(occupiedDate);
-      return occupied >= startDate && occupied <= endDate;
+      occupied.setHours(0, 0, 0, 0);
+      console.log(occupied, new Date(startDate));
+
+      let fallsIntoRange = true;
+
+      if (endDate.getTime() != startDate.getTime()) {
+        console.log("first cond");
+        fallsIntoRange = occupied >= startDate && occupied <= endDate;
+      } else {
+        console.log("second cond");
+        fallsIntoRange = occupied.getTime() === startDate.getTime();
+      }
+
+      console.log(
+        "The set range: " +
+          new Date(startDate) +
+          " " +
+          new Date(endDate) +
+          " The occupied Date being checked: " +
+          occupied,
+        fallsIntoRange
+      );
+      return fallsIntoRange;
     };
 
     const availableRooms = roomData.filter((room) =>
