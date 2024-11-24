@@ -13,9 +13,9 @@ const AuthForm = ({ submitCallback }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    submitCallback(formData, isLogin);
+    await submitCallback(formData, isLogin);
   };
   const toggleAuthMode = () => {
     setIsLogin((prev) => !prev);

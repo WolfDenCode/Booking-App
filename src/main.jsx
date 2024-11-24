@@ -96,13 +96,60 @@ const users = [
 ];
 let currentUser = null;
 
-const handleAuthentication = (data, isLogin) => {
+const handleAuthentication = async (data, isLogin) => {
   if (isLogin) {
     console.log("Logging In", data);
     currentUser = data;
+    try {
+      const response = await fetch("http://127.0.0.1:8000/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: currentUser.email,
+          password: currentUser.password,
+          username: currentUser.email,
+        }), // Payload
+      });
+
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
+
+      const data = await response.json(); // Parse the JSON response
+      console.log("Login successful:", data);
+      return data; // This may include token or user info
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
   } else {
-    console.log("Signing Up", data);
-    users.push({ ...data, id: users.length + 1, occupiedRooms: [] });
+    console.log("Registering", data);
+    currentUser = data;
+    try {
+      const response = await fetch("http://127.0.0.1:8000/register/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: currentUser.email,
+          password: currentUser.password,
+          username: currentUser.email,
+          full_name: currentUser.name,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Register failed");
+      }
+
+      const data = await response.json(); // Parse the JSON response
+      console.log("Register successful:", data);
+      return data; // This may include token or user info
+    } catch (error) {
+      console.error("Error during register:", error);
+    }
   }
 };
 
