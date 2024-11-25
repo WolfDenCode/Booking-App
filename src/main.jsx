@@ -73,7 +73,7 @@ import AuthForm from "./components/AuthForm.jsx";
 //       "Perfect for families, with spacious living and a kitchenette.",
 //   },
 // ];
-
+let currentUser = null;
 const handleAuthentication = async (data, isLogin) => {
   if (isLogin) {
     console.log("Logging In", data);
@@ -97,6 +97,7 @@ const handleAuthentication = async (data, isLogin) => {
 
       const data = await response.json(); // Parse the JSON response
       console.log("Login successful:", data);
+      localStorage.setItem("token", data.token);
       return data; // This may include token or user info
     } catch (error) {
       console.error("Error during login:", error);
@@ -124,6 +125,7 @@ const handleAuthentication = async (data, isLogin) => {
 
       const data = await response.json(); // Parse the JSON response
       console.log("Register successful:", data);
+      localStorage.setItem("token", data.token);
       return data; // This may include token or user info
     } catch (error) {
       console.error("Error during register:", error);

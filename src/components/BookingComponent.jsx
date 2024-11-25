@@ -11,8 +11,9 @@ const BookingComponent = ({ currentUser }) => {
   const [filteredRooms, setFilteredRooms] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
   const [error, setError] = useState("");
-
+  const [success, setSuccess] = useState("");
   const [loggedInUser, setLoggedInUser] = useState(currentUser);
+
   const [roomData, setRoomData] = useState([]);
 
   useEffect(() => {
@@ -138,27 +139,15 @@ const BookingComponent = ({ currentUser }) => {
     const isDateInRange = (occupiedDate) => {
       const occupied = new Date(occupiedDate);
       occupied.setHours(0, 0, 0, 0);
-      console.log(occupied, new Date(startDate));
 
       let fallsIntoRange = true;
 
       if (endDate.getTime() != startDate.getTime()) {
-        console.log("first cond");
         fallsIntoRange = occupied >= startDate && occupied <= endDate;
       } else {
-        console.log("second cond");
         fallsIntoRange = occupied.getTime() === startDate.getTime();
       }
 
-      console.log(
-        "The set range: " +
-          new Date(startDate) +
-          " " +
-          new Date(endDate) +
-          " The occupied Date being checked: " +
-          occupied,
-        fallsIntoRange
-      );
       return fallsIntoRange;
     };
 
@@ -208,6 +197,18 @@ const BookingComponent = ({ currentUser }) => {
         {filteredRooms.length > 0 ? (
           filteredRooms.map((room) => (
             <RoomCard
+              onBookingSuccess={() => {
+                setSelectedDates({
+                  startDate: null,
+                  endDate: null,
+                });
+                setFilteredRooms([]);
+                setSuccess("Booking Succesful!");
+                setTimeout(() => {
+                  setSuccess("");
+                  setError("");
+                }, 5000);
+              }}
               key={room.id}
               room={room}
               selectedDateRange={selectedDates}
@@ -215,6 +216,10 @@ const BookingComponent = ({ currentUser }) => {
           ))
         ) : isFiltered && selectedDates.startDate ? (
           <p>No available rooms for the selected dates.</p>
+        ) : success != "" ? (
+          <p>{success}</p>
+        ) : error != "" ? (
+          <p>{error}</p>
         ) : (
           <p>Please select a date for booking.</p>
         )}
