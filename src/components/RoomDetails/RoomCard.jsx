@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import RoomImageSlider from "./RoomImageSlider";
 import RoomInfo from "./Roominfo";
 
-import OccupiedDates from "./OccupiedDates";
 import "./RoomDetails.css";
 import { UserContext } from "../UserContext";
 import { redirect, useNavigate } from "react-router-dom";

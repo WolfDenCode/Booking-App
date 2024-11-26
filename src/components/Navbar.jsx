@@ -1,9 +1,15 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { UserContext } from "./UserContext";
 const Navbar = () => {
   const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+  function handleLogout() {
+    localStorage.setItem("user", null);
+    setUser(null);
+    navigate("/");
+  }
   return (
     <nav className="navbar">
       <h1>Hotel Booking</h1>
@@ -19,7 +25,9 @@ const Navbar = () => {
             <Link to="auth">Login</Link>
           </li>
         ) : (
-          <li>Logout</li>
+          <li className="logout" onClick={handleLogout}>
+            Logout
+          </li>
         )}
       </ul>
     </nav>

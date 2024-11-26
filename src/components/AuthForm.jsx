@@ -1,8 +1,10 @@
 import React, { useContext, useState } from "react";
 import "./AuthForm.css";
 import { UserContext } from "./UserContext";
+import { useNavigate } from "react-router-dom";
 const AuthForm = () => {
   const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -38,7 +40,7 @@ const AuthForm = () => {
 
       localStorage.setItem("user", data);
       setUser(data);
-      return data;
+      navigate("/");
     } catch (error) {
       console.error("Error during login:", error);
     }
@@ -68,7 +70,7 @@ const AuthForm = () => {
       console.log("Register successful:", data);
       localStorage.setItem("user", data);
       setUser(data);
-      return data; // This may include token or user info
+      navigate("/");
     } catch (error) {
       console.error("Error during register:", error);
     }
@@ -76,11 +78,10 @@ const AuthForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // await submitCallback(formData, isLogin, setUser);
     if (isLogin) {
-      handleLogin();
+      await handleLogin();
     } else {
-      handleRegister();
+      await handleRegister();
     }
   };
   const toggleAuthMode = () => {
