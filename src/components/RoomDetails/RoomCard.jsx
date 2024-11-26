@@ -7,8 +7,8 @@ import "./RoomDetails.css";
 
 const RoomCard = ({ room, selectedDateRange, onBookingSuccess }) => {
   const handleBooking = async (roomId, userId, selectedDateRange) => {
-    const token = localStorage.getItem("token");
-    console.log(token);
+    const user = localStorage.getItem("user");
+    console.log(user.token);
     const baseURL = "http://127.0.0.1:8000";
     const roomUrl = `${baseURL}/rooms/${roomId}/`;
     const userUrl = `${baseURL}/users/${userId}/`;
@@ -33,7 +33,7 @@ const RoomCard = ({ room, selectedDateRange, onBookingSuccess }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
+            Authorization: `Token ${user.token}`,
           },
           body: JSON.stringify({
             room: roomUrl, // Full URL, e.g., /rooms/1/

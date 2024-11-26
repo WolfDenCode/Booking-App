@@ -97,8 +97,9 @@ const handleAuthentication = async (data, isLogin) => {
 
       const data = await response.json(); // Parse the JSON response
       console.log("Login successful:", data);
-      localStorage.setItem("token", data.token);
-      return data; // This may include token or user info
+
+      localStorage.setItem("user", data);
+      return data;
     } catch (error) {
       console.error("Error during login:", error);
     }
@@ -125,7 +126,7 @@ const handleAuthentication = async (data, isLogin) => {
 
       const data = await response.json(); // Parse the JSON response
       console.log("Register successful:", data);
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", data);
       return data; // This may include token or user info
     } catch (error) {
       console.error("Error during register:", error);
