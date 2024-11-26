@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import RoomImageSlider from "./RoomImageSlider";
 import RoomInfo from "./Roominfo";
 
 import OccupiedDates from "./OccupiedDates";
 import "./RoomDetails.css";
+import { UserContext } from "../UserContext";
+import { redirect, useNavigate } from "react-router-dom";
 
 const RoomCard = ({ room, selectedDateRange, onBookingSuccess }) => {
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
   const handleBooking = async (roomId, userId, selectedDateRange) => {
-    const user = localStorage.getItem("user");
+    if (!user) {
+      return navigate("/auth");
+    }
     console.log(user.token);
     const baseURL = "http://127.0.0.1:8000";
     const roomUrl = `${baseURL}/rooms/${roomId}/`;
@@ -21,13 +27,6 @@ const RoomCard = ({ room, selectedDateRange, onBookingSuccess }) => {
       currentDate <= new Date(selectedDateRange.endDate);
       currentDate.setDate(currentDate.getDate() + 1)
     ) {
-      console.log(
-        currentDate
-          .toLocaleDateString("hu")
-          .replace(/\./g, "-")
-          .replace(/\s+/g, "")
-          .slice(0, -1)
-      );
       try {
         const response = await fetch(`${baseURL}/occupied-dates/`, {
           method: "POST",
