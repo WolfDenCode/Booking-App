@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./AuthForm.css";
-
-const AuthForm = ({ submitCallback }) => {
+import { UserContext } from "./UserContext";
+const AuthForm = () => {
+  const { user, setUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -15,7 +16,66 @@ const AuthForm = ({ submitCallback }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await submitCallback(formData, isLogin);
+    // await submitCallback(formData, isLogin, setUser);
+    if (isLogin) {
+      console.log("Logging In", formData);
+      let userData = formData;
+      try {
+        const response = await fetch("http://127.0.0.1:8000/login/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: userData.email,
+            password: userData.password,
+            username: userData.email,
+          }), // Payload
+        });
+
+        if (!response.ok) {
+          throw new Error("Login failed");
+        }
+
+        const data = await response.json(); // Parse the JSON response
+        console.log("Login successful:", data);
+
+        localStorage.setItem("user", data);
+        setUser(data);
+        return data;
+      } catch (error) {
+        console.error("Error during login:", error);
+      }
+    } else {
+      console.log("Registering", formData);
+      let userData = formData;
+      try {
+        const response = await fetch("http://127.0.0.1:8000/register/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: userData.email,
+            password: userData.password,
+            username: userData.email,
+            full_name: userData.name,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Register failed");
+        }
+
+        const data = await response.json(); // Parse the JSON response
+        console.log("Register successful:", data);
+        localStorage.setItem("user", data);
+        setUser(data);
+        return data; // This may include token or user info
+      } catch (error) {
+        console.error("Error during register:", error);
+      }
+    }
   };
   const toggleAuthMode = () => {
     setIsLogin((prev) => !prev);

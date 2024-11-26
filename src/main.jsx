@@ -1,4 +1,4 @@
-import { StrictMode, useEffect, useState } from "react";
+import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
@@ -15,6 +15,7 @@ import standard2 from "./assets/images/standard2.webp";
 import AllRooms from "./components/AllRooms.jsx";
 import BookingComponent from "./components/BookingComponent.jsx";
 import AuthForm from "./components/AuthForm.jsx";
+import { UserProvider } from "./components/UserContext.jsx";
 
 // let roomData = [
 //   {
@@ -73,66 +74,6 @@ import AuthForm from "./components/AuthForm.jsx";
 //       "Perfect for families, with spacious living and a kitchenette.",
 //   },
 // ];
-let currentUser = null;
-const handleAuthentication = async (data, isLogin) => {
-  if (isLogin) {
-    console.log("Logging In", data);
-    currentUser = data;
-    try {
-      const response = await fetch("http://127.0.0.1:8000/login/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: currentUser.email,
-          password: currentUser.password,
-          username: currentUser.email,
-        }), // Payload
-      });
-
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
-
-      const data = await response.json(); // Parse the JSON response
-      console.log("Login successful:", data);
-
-      localStorage.setItem("user", data);
-      return data;
-    } catch (error) {
-      console.error("Error during login:", error);
-    }
-  } else {
-    console.log("Registering", data);
-    currentUser = data;
-    try {
-      const response = await fetch("http://127.0.0.1:8000/register/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: currentUser.email,
-          password: currentUser.password,
-          username: currentUser.email,
-          full_name: currentUser.name,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Register failed");
-      }
-
-      const data = await response.json(); // Parse the JSON response
-      console.log("Register successful:", data);
-      localStorage.setItem("user", data);
-      return data; // This may include token or user info
-    } catch (error) {
-      console.error("Error during register:", error);
-    }
-  }
-};
 
 const router = createBrowserRouter([
   {
@@ -149,20 +90,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/auth",
-        element: (
-          <AuthForm
-            isLogin={false}
-            submitCallback={(data, islogin) =>
-              handleAuthentication(data, islogin)
-            }
-          ></AuthForm>
-        ),
+        element: <AuthForm></AuthForm>,
       },
     ],
   },
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
   </StrictMode>
 );
