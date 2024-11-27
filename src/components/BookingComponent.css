@@ -113,3 +113,12 @@
   outline: 2px solid #0056b3;
   outline-offset: 2px;
 }
+.date-switcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+.date-switcher:hover {
+  background-color: #f8b896b6;
+}

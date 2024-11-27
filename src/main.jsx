@@ -16,6 +16,7 @@ import AllRooms from "./components/AllRooms.jsx";
 import BookingComponent from "./components/BookingComponent.jsx";
 import AuthForm from "./components/AuthForm.jsx";
 import { UserProvider } from "./components/UserContext.jsx";
+import GuestRoute from "./components/GuestRoute.jsx";
 
 // let roomData = [
 //   {
@@ -90,7 +91,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/auth",
-        element: <AuthForm></AuthForm>,
+        element: (
+          <GuestRoute>
+            <AuthForm></AuthForm>
+          </GuestRoute>
+        ),
       },
     ],
   },

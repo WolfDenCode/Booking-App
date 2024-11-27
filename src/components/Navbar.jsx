@@ -6,7 +6,7 @@ const Navbar = () => {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   function handleLogout() {
-    localStorage.setItem("user", null);
+    localStorage.removeItem("user");
     setUser(null);
     navigate("/");
   }

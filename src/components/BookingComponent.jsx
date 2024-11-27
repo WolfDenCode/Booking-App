@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+
 import RoomCard from "./RoomDetails/RoomCard";
 import "./BookingComponent.css";
 
@@ -163,14 +165,18 @@ const BookingComponent = ({ currentUser }) => {
   return (
     <div className="booking-container">
       <div className="calendar-header">
-        <button onClick={() => handleMonthChange(-1)}>&lt;</button>
+        <button className="date-switcher" onClick={() => handleMonthChange(-1)}>
+          <FaArrowLeft></FaArrowLeft>{" "}
+        </button>
         <h2>
           {currentDate.toLocaleString("default", {
             month: "long",
             year: "numeric",
           })}
         </h2>
-        <button onClick={() => handleMonthChange(1)}>&gt;</button>
+        <button className="date-switcher" onClick={() => handleMonthChange(1)}>
+          <FaArrowRight></FaArrowRight>
+        </button>
       </div>
 
       <div className="calendar-days">

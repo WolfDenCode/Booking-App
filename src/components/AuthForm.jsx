@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./AuthForm.css";
 import { UserContext } from "./UserContext";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,12 @@ const AuthForm = () => {
     name: "",
   });
   const [isLogin, setIsLogin] = useState(true);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, []);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
