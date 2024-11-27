@@ -20,6 +20,11 @@ const Navbar = () => {
         <li>
           <Link to="all-rooms">All Rooms</Link>
         </li>
+        {user == null ? null : (
+          <li>
+            <Link to="my-bookings">My Bookings</Link>
+          </li>
+        )}
         {user == null ? (
           <li>
             <Link to="auth">Login</Link>

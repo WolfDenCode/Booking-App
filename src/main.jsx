@@ -17,6 +17,7 @@ import BookingComponent from "./components/BookingComponent.jsx";
 import AuthForm from "./components/AuthForm.jsx";
 import { UserProvider } from "./components/UserContext.jsx";
 import GuestRoute from "./components/GuestRoute.jsx";
+import OccupiedDatesDisplay from "./components/OccupiedDatesDisplay.jsx";
 
 // let roomData = [
 //   {
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
             <AuthForm></AuthForm>
           </GuestRoute>
         ),
+      },
+      {
+        path: "/my-bookings",
+        element: <OccupiedDatesDisplay></OccupiedDatesDisplay>,
       },
     ],
   },
