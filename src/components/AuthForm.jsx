@@ -44,7 +44,7 @@ const AuthForm = () => {
       const data = await response.json(); // Parse the JSON response
       console.log("Login successful:", data);
 
-      localStorage.setItem("user", data);
+      localStorage.setItem("user", JSON.stringify(data));
       setUser(data);
       navigate("/");
     } catch (error) {
@@ -74,7 +74,7 @@ const AuthForm = () => {
 
       const data = await response.json(); // Parse the JSON response
       console.log("Register successful:", data);
-      localStorage.setItem("user", data);
+      localStorage.setItem("user", JSON.stringify(data));
       setUser(data);
       navigate("/");
     } catch (error) {
