@@ -44,6 +44,7 @@ const RoomCard = ({ room, selectedDateRange, onBookingSuccess }) => {
           }),
         });
         console.log(user);
+        console.log(response);
         console.log(
           roomUrl,
           userUrl,
