@@ -43,6 +43,15 @@ const RoomCard = ({ room, selectedDateRange, onBookingSuccess }) => {
               .slice(0, -1), // Format date as YYYY-MM-DD
           }),
         });
+        console.log(
+          roomUrl,
+          userUrl,
+          currentDate
+            .toLocaleDateString("hu")
+            .replace(/\./g, "-")
+            .replace(/\s+/g, "")
+            .slice(0, -1)
+        ); // Format date as YYYY-MM-DD)
         if (!response.ok) {
           throw new Error("Booking failed");
         }
