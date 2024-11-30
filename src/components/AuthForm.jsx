@@ -25,17 +25,20 @@ const AuthForm = () => {
     console.log("Logging In", formData);
     let userData = formData;
     try {
-      const response = await fetch("http://127.0.0.1:8000/login/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: userData.email,
-          password: userData.password,
-          username: userData.email,
-        }), // Payload
-      });
+      const response = await fetch(
+        "https://booking-app-backend-4vb9.onrender.com/login/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: userData.email,
+            password: userData.password,
+            username: userData.email,
+          }), // Payload
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Login failed");
@@ -55,18 +58,21 @@ const AuthForm = () => {
     console.log("Registering", formData);
     let userData = formData;
     try {
-      const response = await fetch("http://127.0.0.1:8000/register/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: userData.email,
-          password: userData.password,
-          username: userData.email,
-          full_name: userData.name,
-        }),
-      });
+      const response = await fetch(
+        "https://booking-app-backend-4vb9.onrender.com/register/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: userData.email,
+            password: userData.password,
+            username: userData.email,
+            full_name: userData.name,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Register failed");
