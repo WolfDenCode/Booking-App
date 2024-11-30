@@ -26,7 +26,7 @@ const OccupiedDatesDisplay = () => {
         if (!response.ok) {
           throw new Error("Fetch failed");
         }
-
+        console.log(user.token);
         const data = await response.json(); // Parse the JSON response
         console.log(data);
         return data;
