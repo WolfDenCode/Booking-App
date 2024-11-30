@@ -43,6 +43,7 @@ const RoomCard = ({ room, selectedDateRange, onBookingSuccess }) => {
               .slice(0, -1), // Format date as YYYY-MM-DD
           }),
         });
+        console.log(user);
         console.log(
           roomUrl,
           userUrl,
