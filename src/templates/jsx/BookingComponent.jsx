@@ -5,6 +5,18 @@ import RoomCard from "./RoomDetails/RoomCard";
 import "./BookingComponent.css";
 
 const BookingComponent = ({ currentUser }) => {
+  const [selectedDates, setSelectedDates] = useState({
+    startDate: null,
+    endDate: null,
+  });
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [filteredRooms, setFilteredRooms] = useState([]);
+  const [isFiltered, setIsFiltered] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loggedInUser, setLoggedInUser] = useState(currentUser);
+
+  const [roomData, setRoomData] = useState([]);
   return (
     <div className="booking-container">
       <div className="calendar-header">
